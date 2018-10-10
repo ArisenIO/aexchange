@@ -13,8 +13,8 @@ import * as Values from './constants/Values'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'ionicons/css/ionicons.css'
 
-import eosAgent from './EosAgent'
-import eosioStore from './stores/eosioStore'
+import rsnAgent from './RsnAgent'
+import arisenStore from './stores/arisenStore'
 import accountStore from './stores/accountStore'
 import marketStore from './stores/marketStore'
 import tradeStore from './stores/tradeStore'
@@ -56,20 +56,20 @@ if (lang) {
 }
 
 const stores = {
-  eosioStore,
+  arisenStore,
   accountStore,
   marketStore,
   tradeStore
 }
 
-document.addEventListener('scatterLoaded', async scatterExtension => {
-  console.log('scatterloaded')
+document.addEventListener('arkidLoaded', async arkidExtension => {
+  console.log('arkidloaded')
 
-  if (window.scatter) {
-    eosAgent.initScatter(window.scatter)
+  if (window.arkid) {
+    rsnAgent.initArkId(window.arkid)
 
-    if (window.scatter.identity) {
-      //eosAgent.initEosAgent(window.scatter.identity)
+    if (window.arkid.identity) {
+      //rsnAgent.initRsnAgent(window.arkid.identity)
       await accountStore.login()
     }
   }

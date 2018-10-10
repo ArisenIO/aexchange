@@ -1,23 +1,23 @@
-import Eos from 'eosjs'
+import Rsn from 'arisenjs'
 import * as Values from './constants/Values'
 
 const singleton = Symbol()
-const singletonEosAgent = Symbol()
+const singletonRsnAgent = Symbol()
 
 const ENDPOINT = Values.NETWORK.protocol + '://' + Values.NETWORK.host + ':' + Values.NETWORK.port
 
-class EosAgent {
-  constructor(eosAgent) {
-    if (eosAgent !== singletonEosAgent) {
+class RsnAgent {
+  constructor(rsnAgent) {
+    if (rsnAgent !== singletonRsnAgent) {
       throw new Error('Cannot construct singleton')
     }
 
-    this.scatter = null
+    this.arkid = null
     this._initialized = false
     this.identity = null
-    this.scatterAccount = null
+    this.arkidAccount = null
 
-    this.eos = Eos({
+    this.rsn = Rsn({
       httpEndpoint: ENDPOINT,
       chainId: Values.NETWORK.chainId
     })
@@ -25,59 +25,59 @@ class EosAgent {
 
   static get instance() {
     if (!this[singleton]) {
-      this[singleton] = new EosAgent(singletonEosAgent)
+      this[singleton] = new RsnAgent(singletonRsnAgent)
     }
 
     return this[singleton]
   }
 
-  initScatter = scatter => {
-    this.scatter = scatter
+  initArkId = arkid => {
+    this.arkid = arkid
     this._initialized = true
   }
 
-  isInitScatter = () => {
+  isInitArkId = () => {
     return this._initialized
   }
 
-  initEosAgent = id => {
+  initRsnAgent = id => {
     if (id) {
-      this.scatter.useIdentity(id)
-      console.log('Possible identity', this.scatter.identity)
-      const loginAccount = this.scatter.identity.accounts.find(
+      this.arkid.useIdentity(id)
+      console.log('Possible identity', this.arkid.identity)
+      const loginAccount = this.arkid.identity.accounts.find(
         acc => acc.blockchain === Values.NETWORK.blockchain
       )
 
-      this.scatterAccount = loginAccount
+      this.arkidAccount = loginAccount
       this.identity = id
 
-      this.eos = this.scatter.eos(Values.NETWORK, Eos, Values.CONFIG)
+      this.rsn = this.arkid.rsn(Values.NETWORK, Rsn, Values.CONFIG)
 
       return true
     }
   }
 
-  loginWithScatter = async () => {
-    if (!this.scatter) {
+  loginWithArkId = async () => {
+    if (!this.arkid) {
       return false
     }
 
-    let id = await this.scatter.getIdentity(Values.requiredFields)
+    let id = await this.arkid.getIdentity(Values.requiredFields)
 
-    return this.initEosAgent(id)
+    return this.initRsnAgent(id)
   }
 
   logout = async () => {
-    if (!this.scatter) {
+    if (!this.arkid) {
       return
     }
 
-    let res = await this.scatter.forgetIdentity()
+    let res = await this.arkid.forgetIdentity()
 
     this._initialized = false
     this.identity = null
     this.loginAccount = null
-    this.eos = Eos({
+    this.rsn = Rsn({
       httpEndpoint: ENDPOINT,
       chainId: Values.NETWORK.chainId
     })
@@ -85,20 +85,20 @@ class EosAgent {
     console.log('logout : ' + res)
   }
 
-  getScatterAccount = () => {
-    return this.scatterAccount
+  getArkIdAccount = () => {
+    return this.arkidAccount
   }
 
   getBlock = async blockNum => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getBlock(blockNum)
+    return await this.rsn.getBlock(blockNum)
   }
 
   getInfo = async () => {
-    return this.eos.getInfo({})
+    return this.rsn.getInfo({})
   }
 
   /**
@@ -110,51 +110,51 @@ class EosAgent {
     }
    */
   getTableRows = async query => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getTableRows(query)
+    return await this.rsn.getTableRows(query)
   }
 
   getAccount = async accountName => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getAccount({ account_name: accountName })
+    return await this.rsn.getAccount({ account_name: accountName })
   }
 
   getKeyAccounts = async publicKey => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getKeyAccounts({ public_key: publicKey })
+    return await this.rsn.getKeyAccounts({ public_key: publicKey })
   }
 
   getCurrencyBalance = async query => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getCurrencyBalance(query)
+    return await this.rsn.getCurrencyBalance(query)
   }
 
   getCurrencyStats = async query => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getCurrencyStats(query)
+    return await this.rsn.getCurrencyStats(query)
   }
 
   getActions = async (account_name, pos, offset) => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.getActions({
+    return await this.rsn.getActions({
       account_name,
       pos,
       offset
@@ -167,55 +167,55 @@ class EosAgent {
    * 0 : unproxy
    */
   regproxy = async (accountName, isProxy) => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.regproxy({
+    return await this.rsn.regproxy({
       proxy: accountName,
       isproxy: isProxy
     })
   }
 
   voteProducer = async (account, producers = [], proxy = '') => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.voteproducer(account, proxy, producers)
+    return await this.rsn.voteproducer(account, proxy, producers)
   }
 
   refund = async owner => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.refund({
+    return await this.rsn.refund({
       owner
     })
   }
 
   createTransaction = async cb => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.transaction(cb)
+    return await this.rsn.transaction(cb)
   }
 
   createTransactionWithContract = async (contract, cb) => {
-    if (!this.eos) {
+    if (!this.rsn) {
       return
     }
 
-    return await this.eos.transaction(contract, cb)
+    return await this.rsn.transaction(contract, cb)
   }
 
   signData = (data, pubKey) => {
-    if (!this.scatter || !data || !pubKey) return null
+    if (!this.arkid || !data || !pubKey) return null
 
-    return this.scatter.getArbitrarySignature(pubKey, data, '', false)
+    return this.arkid.getArbitrarySignature(pubKey, data, '', false)
   }
 }
 
-export default EosAgent.instance
+export default RsnAgent.instance

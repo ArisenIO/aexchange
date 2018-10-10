@@ -1,6 +1,6 @@
-# Every EOS
+# aExchange
 
-Decentralized exchange based on [eos.io](http://developers.eos.io/)
+Decentralized exchange based on [Arisen](http://arisendocs.com)
 
 Create react project by create-react-app
 
@@ -8,7 +8,7 @@ Create react project by create-react-app
 
 ## Concept
 
-<img src="https://github.com/lky1001/every-eos/blob/develop/docs/concept.png" width="800" />
+<img src="https://github.com/arisenio/aexchange/blob/develop/docs/concept.png" width="800" />
 
 ## Required
 
@@ -40,7 +40,7 @@ $ npm run build or yarn build
 
 ## Features
 
-- Login with [scatter](https://get-scatter.com)
+- Login with [ArkID](https://arkid.io)
 - Market Tokens
 - Trade
 - Token Open Orders
@@ -50,9 +50,9 @@ $ npm run build or yarn build
 ## TODO
 
 - Wallet
-- Clear cache as soon as logout scatter
+- Clear cache as soon as logout ArkID
 - Cancel Result( Unexpected Result like already partial dealt, all dealt or cancelled)
 
 ## License
 
-everyeos is licensed under the MIT License, also included in our repository in the LICENSE file.
+aExchange is licensed under the MIT License, also included in our repository in the LICENSE file.

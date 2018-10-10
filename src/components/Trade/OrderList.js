@@ -93,14 +93,14 @@ class OrderList extends Component {
           <thead>
             <tr>
               <th style={{ width: '30%' }}>
-                <FormattedMessage id="Price(EOS)" />
+                <FormattedMessage id="Price(RSN)" />
               </th>
               <th style={{ width: '40%' }}>
                 <FormattedMessage id="Amount" />
                 {`(${token.symbol})`}
               </th>
               <th style={{ width: '30%' }}>
-                <FormattedMessage id="Total(EOS)" />
+                <FormattedMessage id="Total(RSN)" />
               </th>
             </tr>
           </thead>

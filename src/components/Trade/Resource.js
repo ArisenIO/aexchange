@@ -50,7 +50,7 @@ class Resource extends Component {
               <TokenInfoTitle>
                 <FormattedMessage id="BALANCE" />
               </TokenInfoTitle>
-              <TokenSymbolText>{`${accountStore.liquid} EOS`}</TokenSymbolText>
+              <TokenSymbolText>{`${accountStore.liquid} RSN`}</TokenSymbolText>
             </div>
 
             <div>
@@ -60,7 +60,7 @@ class Resource extends Component {
               {/* {`${(accountStore.cpu.used / 1000).toFixed(4)} ms`} /{' '}
               {`${(accountStore.cpu.max / 1000).toFixed(4)} ms`}
               <br />
-              CPU ({`${accountStore.totalResource.cpuWeight} EOS`}) */}
+              CPU ({`${accountStore.totalResource.cpuWeight} RSN`}) */}
             </div>
 
             <div>
@@ -70,7 +70,7 @@ class Resource extends Component {
               {/* {`${(accountStore.net.used / 1024).toFixed(4)} KB`} /{' '}
               {`${(accountStore.net.max / 1024).toFixed(4)} KB`}
               <br />
-              NET ({`${accountStore.totalResource.netWeight} EOS`}) */}
+              NET ({`${accountStore.totalResource.netWeight} RSN`}) */}
             </div>
 
             <div>

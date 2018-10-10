@@ -23,7 +23,7 @@ class ResourceView extends Component {
         {accountStore.isLogin && (
           <Grid>
             <Row className="show-grid">
-              <Col xs={2}>EOS</Col>
+              <Col xs={2}>RSN</Col>
               <Col xs={2}>Cpu</Col>
               <Col xs={2}>Net</Col>
               <Col xs={2}>Ram</Col>

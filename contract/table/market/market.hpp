@@ -16,7 +16,7 @@ struct market
         return code;
     }
 
-    EOSLIB_SERIALIZE(
+    ARISENLIB_SERIALIZE(
         market,
         (code))
 }

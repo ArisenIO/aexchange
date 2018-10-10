@@ -139,7 +139,7 @@ class OrderHistory extends Component {
                               <FormattedMessage id={o.type} />
                             </SellTypeColumn>
                           )}
-                          <OrderBaseColumn>{o.token_price.toFixed(4)} EOS</OrderBaseColumn>
+                          <OrderBaseColumn>{o.token_price.toFixed(4)} RSN</OrderBaseColumn>
                           <OrderBaseColumn>
                             {o.status === ORDER_STATUS_ALL_DEALED
                               ? o.orderDetails.length === 0
@@ -147,7 +147,7 @@ class OrderHistory extends Component {
                                 : Math.round(
                                   o.orderDetails.reduce((acc, curr) => acc + curr.amount * curr.token_price, 0) /
                                       o.orderDetails.reduce((acc, curr) => acc + curr.amount, 0)
-                                ).toFixed(4) + ' EOS'
+                                ).toFixed(4) + ' RSN'
                               : o.status === ORDER_STATUS_CANCELLED
                                 ? o.orderDetails.length === 0
                                   ? 0
@@ -158,7 +158,7 @@ class OrderHistory extends Component {
                                         o.orderDetails
                                           .filter(od => od.deal_status === ORDER_DETAIL_DEAL_STATUS_CANCELLED)
                                           .reduce((acc, curr) => acc + curr.amount, 0)
-                                  ).toFixed(4) + ' EOS'
+                                  ).toFixed(4) + ' RSN'
                                 : '-'}
                           </OrderBaseColumn>
                           <OrderBaseColumn>{o.total_amount}</OrderBaseColumn>
@@ -167,7 +167,7 @@ class OrderHistory extends Component {
                             {o.status === ORDER_STATUS_ALL_DEALED
                               ? o.orderDetails.length === 0
                                 ? 0
-                                : Math.round(o.orderDetails.reduce((acc, curr) => acc + curr.amount * curr.token_price, 0)).toFixed(4) + ' EOS'
+                                : Math.round(o.orderDetails.reduce((acc, curr) => acc + curr.amount * curr.token_price, 0)).toFixed(4) + ' RSN'
                               : o.status === ORDER_STATUS_CANCELLED
                                 ? o.orderDetails.length === 0
                                   ? 0
@@ -175,7 +175,7 @@ class OrderHistory extends Component {
                                     o.orderDetails
                                       .filter(od => od.deal_status === ORDER_DETAIL_DEAL_STATUS_CANCELLED)
                                       .reduce((acc, curr) => acc + curr.amount * curr.token_price, 0)
-                                  ).toFixed(4) + ' EOS'
+                                  ).toFixed(4) + ' RSN'
                                 : '-'}
                           </OrderBaseColumn>
                           <OrderBaseColumn>

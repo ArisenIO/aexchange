@@ -45,7 +45,7 @@ class Home extends Component {
           <Row>
             <Col xs={3} />
             <Col xs={6}>
-              <TitleView>Everyeos</TitleView>
+              <TitleView>aExchange</TitleView>
             </Col>
             <Col xs={3} />
           </Row>

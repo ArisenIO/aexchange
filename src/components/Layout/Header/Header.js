@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { compose } from 'recompose'
 import { FormattedMessage } from 'react-intl'
-import { SCATTER_ERROR_LOCKED, supportLanguage } from '../../../constants/Values'
+import { ARKID_ERROR_LOCKED, supportLanguage } from '../../../constants/Values'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -69,14 +69,14 @@ class Header extends Component {
             CustomSwal.clickConfirm()
           }
         }).then(() => {
-          return CustomSwal.fire(<p>Please Install Scatter.</p>)
+          return CustomSwal.fire(<p>Please Install ArisenID.</p>)
         })
       }
     } catch (e) {
       // todo - error handle
       // 423 Locked
-      if (e.code === SCATTER_ERROR_LOCKED) {
-        this.props.alert.show('Scatter is locked.')
+      if (e.code === ARKID_ERROR_LOCKED) {
+        this.props.alert.show('ArisenID is locked.')
       }
     }
   }
@@ -97,7 +97,7 @@ class Header extends Component {
         <nav>
           <h2 className="header-title">
             <Link to="/" style={{ color: 'white' }}>
-              EVERYEOS
+              AEXCHANGE
             </Link>
           </h2>
           <h6 className="header-title" style={{ fontSize: '15px', marginLeft: '30px' }}>

@@ -3,7 +3,7 @@ import NumberFormat from 'react-number-format'
 import { FormattedMessage } from 'react-intl'
 import styled from 'styled-components'
 import ColorsConstant from '../Colors/ColorsConstant'
-import { EOS_TOKEN } from '../../constants/Values'
+import { RSN_TOKEN } from '../../constants/Values'
 
 const TokenInfoTitle = styled.h6`
   font-size: 1.35rem;
@@ -47,10 +47,10 @@ class TokenInfo extends Component {
               <TokenSymbolText up={token.last_price - token.last_previous_price > 0} down={token.last_price - token.last_previous_price < 0}>
                 <NumberFormat
                   displayType={'text'}
-                  suffix=" EOS"
+                  suffix=" RSN"
                   value={token.last_price}
                   fixedDecimalScale={true}
-                  decimalScale={EOS_TOKEN.precision}
+                  decimalScale={RSN_TOKEN.precision}
                 />
               </TokenSymbolText>
             </div>
@@ -59,7 +59,7 @@ class TokenInfo extends Component {
                 <FormattedMessage id="Today Changed" />
               </TokenInfoTitle>
               <TokenSymbolText up={todayChanged > 0} down={todayChanged < 0}>
-                <NumberFormat displayType={'text'} suffix=" EOS" value={todayChanged} fixedDecimalScale={true} decimalScale={EOS_TOKEN.precision} />
+                <NumberFormat displayType={'text'} suffix=" RSN" value={todayChanged} fixedDecimalScale={true} decimalScale={RSN_TOKEN.precision} />
               </TokenSymbolText>
             </div>
             <div>
@@ -69,10 +69,10 @@ class TokenInfo extends Component {
               <TokenSymbolText>
                 <NumberFormat
                   displayType={'text'}
-                  suffix=" EOS"
+                  suffix=" RSN"
                   value={token.high_price_24h}
                   fixedDecimalScale={true}
-                  decimalScale={EOS_TOKEN.precision}
+                  decimalScale={RSN_TOKEN.precision}
                 />
               </TokenSymbolText>
             </div>
@@ -83,10 +83,10 @@ class TokenInfo extends Component {
               <TokenSymbolText>
                 <NumberFormat
                   displayType={'text'}
-                  suffix=" EOS"
+                  suffix=" RSN"
                   value={token.low_price_24h}
                   fixedDecimalScale={true}
-                  decimalScale={EOS_TOKEN.precision}
+                  decimalScale={RSN_TOKEN.precision}
                 />
               </TokenSymbolText>
             </div>
@@ -97,11 +97,11 @@ class TokenInfo extends Component {
               <TokenSymbolText>
                 <NumberFormat
                   displayType={'text'}
-                  suffix=" EOS"
+                  suffix=" RSN"
                   value={token.volume_24h}
                   thousandSeparator={true}
                   fixedDecimalScale={true}
-                  decimalScale={EOS_TOKEN.precision}
+                  decimalScale={RSN_TOKEN.precision}
                 />
               </TokenSymbolText>
             </div>

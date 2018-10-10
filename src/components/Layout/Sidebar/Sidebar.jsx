@@ -32,7 +32,7 @@ class Sidebar extends React.Component {
             <em className="ion-close-round" />
           </div>
           <a href="#" className="sidebar-header-logo">
-            <span className="sidebar-header-logo-text">EVERYEOS</span>
+            <span className="sidebar-header-logo-text">AEXCHANGE</span>
           </a>
         </div>
         <div className="sidebar-content">

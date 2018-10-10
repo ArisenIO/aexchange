@@ -57,7 +57,7 @@ class MarketStore {
 
   /**
    * symbol : IQ
-   * market : IQ_EOS
+   * market : IQ_RSN
    */
   getTokenInfo = async (symbol, market) => {
     // last price

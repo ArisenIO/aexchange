@@ -1,11 +1,12 @@
 {
-  "name": "everyeos",
+  "name": "aexchange",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.1.1",
     "apollo-client": "^2.0.0-rc.7",
     "apollo-client-preset": "^1.0.8",
+    "arisenjs": "~1.0.0",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",
@@ -25,7 +26,6 @@
     "date-fns": "^1.29.0",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
-    "eosjs": "^16.0.6",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",

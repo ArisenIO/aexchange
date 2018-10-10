@@ -7,7 +7,7 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import { HeaderTable, TableLgRow, OrderBaseColumn, DateColumn, BuyTypeColumn, SellTypeColumn } from '../Common/Common'
 import { ORDER_STATUS_NOT_DEAL, ORDER_STATUS_PARTIAL_DEALED, ORDER_TYPE_BUY, ORDER_DATE_FORMAT } from '../../constants/Values'
 
-import eosAgent from '../../EosAgent'
+import rsnAgent from '../../RsnAgent'
 import { format } from 'date-fns'
 
 class OpenOrder extends Component {
@@ -67,7 +67,7 @@ class OpenOrder extends Component {
         accountName: accountStore.loginAccountInfo.account_name
       })
 
-      const signature = await eosAgent.signData(data, pubKey)
+      const signature = await rsnAgent.signData(data, pubKey)
 
       if (!signature) {
         alert('check your identity')
@@ -157,13 +157,13 @@ class OpenOrder extends Component {
                               <FormattedMessage id={o.type} />
                             </SellTypeColumn>
                           )}
-                          <OrderBaseColumn>{o.token_price.toFixed(4)} EOS</OrderBaseColumn>
+                          <OrderBaseColumn>{o.token_price.toFixed(4)} RSN</OrderBaseColumn>
                           <OrderBaseColumn>
                             {o.status === ORDER_STATUS_PARTIAL_DEALED
                               ? Math.round(
                                 o.orderDetails.reduce((acc, curr) => acc + curr.amount * curr.token_price, 0) /
                                     o.orderDetails.reduce((acc, curr) => acc + curr.amount, 0)
-                              ).toFixed(4) + ' EOS'
+                              ).toFixed(4) + ' RSN'
                               : '-'}
                           </OrderBaseColumn>
                           <OrderBaseColumn>{o.total_amount}</OrderBaseColumn>

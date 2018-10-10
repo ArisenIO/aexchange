@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { withRouter } from 'react-router'
 import { HeaderTable, PriceRow, TableMdRow } from '../Common/Common'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { EOS_TOKEN } from '../../constants/Values'
+import { RSN_TOKEN } from '../../constants/Values'
 import styled from 'styled-components'
 
 const BaseColumn = styled.td`
@@ -81,10 +81,10 @@ class Market extends Component {
                             <PriceRow up={t.last_price - t.last_previous_price > 0} down={t.last_price - t.last_previous_price < 0}>
                               <NumberFormat
                                 displayType={'text'}
-                                suffix=" EOS"
+                                suffix=" RSN"
                                 value={t.last_price}
                                 fixedDecimalScale={true}
-                                decimalScale={EOS_TOKEN.precision}
+                                decimalScale={RSN_TOKEN.precision}
                               />
                             </PriceRow>
                           </LastPriceColumn>

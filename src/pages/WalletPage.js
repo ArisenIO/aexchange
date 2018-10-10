@@ -60,7 +60,7 @@ class Wallet extends Component {
   }
 
   getWalletBalance = async () => {
-    const { accountStore, marketStore, eosioStore } = this.props
+    const { accountStore, marketStore, arisenStore } = this.props
 
     const tokens = marketStore.tokens ? (marketStore.tokens.data ? marketStore.tokens.data.tokens : null) : null
 
@@ -82,7 +82,7 @@ class Wallet extends Component {
             return true
           })
           .map(async token => {
-            const balance = await eosioStore.getCurrencyBalance({
+            const balance = await arisenStore.getCurrencyBalance({
               code: token.contract,
               account: accountStore.loginAccountInfo.account_name,
               symbol: token.symbol
@@ -127,7 +127,7 @@ class Wallet extends Component {
                 <div className="media-left" />
                 <div className="media-body media-middle">
                   <h4 className="media-heading">{accountStore.loginAccountInfo.account_name}</h4>
-                  <h4 className="media-heading">{`${accountStore.liquid} EOS`}</h4>
+                  <h4 className="media-heading">{`${accountStore.liquid} RSN`}</h4>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ class Wallet extends Component {
                               <FormattedMessage id="Frozen" />
                             </th>
                             <th>
-                              <FormattedMessage id="EOS valuation" />
+                              <FormattedMessage id="RSN valuation" />
                             </th>
                             <th>
                               <FormattedMessage id="Exchange" />
@@ -217,6 +217,6 @@ class Wallet extends Component {
 }
 
 export default compose(
-  inject('marketStore', 'eosioStore', 'tradeStore', 'accountStore'),
+  inject('marketStore', 'arisenStore', 'tradeStore', 'accountStore'),
   observer
 )(Wallet)

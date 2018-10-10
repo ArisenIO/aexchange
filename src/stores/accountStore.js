@@ -1,5 +1,5 @@
 import { decorate, observable, action } from 'mobx'
-import eosAgent from '../EosAgent'
+import rsnAgent from '../RsnAgent'
 
 class AccountStore {
   loginStateObserveble
@@ -8,7 +8,7 @@ class AccountStore {
   loginAccountInfo = null
   totalBalance = 0.0
   totalRefund = 0.0
-  eosBalance = 0.0
+  rsnBalance = 0.0
   liquid = 0.0
   cpu = {
     max: 0,
@@ -50,7 +50,7 @@ class AccountStore {
   }
 
   login = async () => {
-    let result = await eosAgent.loginWithScatter()
+    let result = await rsnAgent.loginWithArkId()
 
     if (result) {
       await this.loadAccountInfo()
@@ -66,13 +66,13 @@ class AccountStore {
   }
 
   logout = async () => {
-    await eosAgent.logout()
+    await rsnAgent.logout()
 
     this.isLogin = false
     this.loginAccountInfo = null
     this.totalBalance = 0.0
     this.totalRefund = 0.0
-    this.eosBalance = 0.0
+    this.rsnBalance = 0.0
     this.liquid = 0.0
     this.cpu = {
       max: 0,
@@ -112,9 +112,9 @@ class AccountStore {
 
   loadAccountInfo = async () => {
     let balance
-    const scatterAccount = eosAgent.getScatterAccount()
+    const arkidAccount = rsnAgent.getArkIdAccount()
 
-    const loginAccountInfo = await eosAgent.getAccount(scatterAccount.name)
+    const loginAccountInfo = await rsnAgent.getAccount(arkidAccount.name)
 
     if (loginAccountInfo) {
       this.liquid = loginAccountInfo.core_liquid_balance
@@ -182,16 +182,16 @@ class AccountStore {
         this.proxy = loginAccountInfo.voter_info.proxy
       }
 
-      balance = await eosAgent.getCurrencyBalance({
-        code: 'eosio.token',
+      balance = await rsnAgent.getCurrencyBalance({
+        code: 'arisen.token',
         account: loginAccountInfo.account_name,
-        symbol: 'EOS'
+        symbol: 'RSN'
       })
 
       if (balance && balance.length > 0) {
-        this.eosBalance = balance[0].split(' ')[0]
+        this.rsnBalance = balance[0].split(' ')[0]
       } else {
-        this.eosBalance = 0.0
+        this.rsnBalance = 0.0
       }
 
       this.loginAccountInfo = loginAccountInfo
@@ -199,7 +199,7 @@ class AccountStore {
   }
 
   getTokenBalance = async (symbol, contract) => {
-    const balance = await eosAgent.getCurrencyBalance({
+    const balance = await rsnAgent.getCurrencyBalance({
       code: contract,
       account: this.loginAccountInfo.account_name,
       symbol: symbol
@@ -215,7 +215,7 @@ decorate(AccountStore, {
   loginAccountInfo: observable,
   totalBalance: observable,
   totalRefund: observable,
-  eosBalance: observable,
+  rsnBalance: observable,
   liquid: observable,
   cpu: observable,
   net: observable,

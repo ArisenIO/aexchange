@@ -69,19 +69,19 @@ class MarketView extends Component {
                         <FormattedMessage id="Name" />
                       </MarketHeader>
                       <MarketHeader className="text-right">
-                        <FormattedMessage id="Last Price" /> (EOS)
+                        <FormattedMessage id="Last Price" /> (RSN)
                       </MarketHeader>
                       <MarketHeader className="text-center" style={{ width: '25%' }}>
-                        <FormattedMessage id="Today Change" /> (EOS)
+                        <FormattedMessage id="Today Change" /> (RSN)
                       </MarketHeader>
                       <MarketHeader className="text-right">
-                        <FormattedMessage id="Today High" /> (EOS)
+                        <FormattedMessage id="Today High" /> (RSN)
                       </MarketHeader>
                       <MarketHeader className="text-right">
-                        <FormattedMessage id="Today Low" /> (EOS)
+                        <FormattedMessage id="Today Low" /> (RSN)
                       </MarketHeader>
                       <MarketHeader className="text-right" style={{ width: '17%' }}>
-                        <FormattedMessage id="Today Volume" /> (EOS)
+                        <FormattedMessage id="Today Volume" /> (RSN)
                       </MarketHeader>
                       <MarketHeader className="text-center">
                         <FormattedMessage id="Trend" />

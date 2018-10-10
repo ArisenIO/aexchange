@@ -4,7 +4,7 @@ class Footer extends Component {
   render() {
     return (
       <footer className="text-center">
-        <span>Copyright © 2018 EVERYEOS. All rights reserved.</span>
+        <span>Copyright © 2018 ARISEN COMMUNITY. All rights reserved.</span>
       </footer>
     )
   }

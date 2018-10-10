@@ -51,7 +51,7 @@ class TradePage extends Component {
   }
 
   render() {
-    const { accountStore, marketStore, tradeStore, eosioStore } = this.props
+    const { accountStore, marketStore, tradeStore, arisenStore } = this.props
 
     const token = marketStore.token
       ? marketStore.token.data
@@ -128,7 +128,7 @@ class TradePage extends Component {
                       token={token}
                       accountStore={accountStore}
                       tradeStore={tradeStore}
-                      eosioStore={eosioStore}
+                      arisenStore={arisenStore}
                     />
                   </NoMarginPaddingCol>
                 </Row>
@@ -148,7 +148,7 @@ class TradePage extends Component {
                     <Wallet
                       accountStore={accountStore}
                       marketStore={marketStore}
-                      eosioStore={eosioStore}
+                      arisenStore={arisenStore}
                     />
                   </NoPaddingCol>
                 </Row>
@@ -209,6 +209,6 @@ class TradePage extends Component {
 }
 
 export default compose(
-  inject('marketStore', 'eosioStore', 'tradeStore', 'accountStore'),
+  inject('marketStore', 'arisenStore', 'tradeStore', 'accountStore'),
   observer
 )(TradePage)

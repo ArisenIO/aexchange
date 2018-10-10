@@ -82,7 +82,7 @@ class Wallet extends Component {
   }
 
   getWalletBalace = async () => {
-    const { accountStore, marketStore, eosioStore } = this.props
+    const { accountStore, marketStore, arisenStore } = this.props
 
     const tokens = marketStore.tokens ? (marketStore.tokens.data ? marketStore.tokens.data.tokens : null) : null
 
@@ -91,22 +91,22 @@ class Wallet extends Component {
     const accountName = accountStore.loginAccountInfo ? accountStore.loginAccountInfo.account_name : null
 
     if (accountName && tokens) {
-      // eos
-      const balance = await eosioStore.getCurrencyBalance({
-        code: 'eosio.token',
+      // rsn
+      const balance = await arisenStore.getCurrencyBalance({
+        code: 'arisen.token',
         account: accountStore.loginAccountInfo.account_name,
-        symbol: 'EOS'
+        symbol: 'RSN'
       })
 
       tokenBalance.push({
         id: 0,
-        name: 'EOS',
+        name: 'RSN',
         balance: balance.length > 0 ? balance[0].split(' ')[0] : 0.0
       })
 
       for (let i = 0; i < tokens.length; i++) {
         const token = tokens[i]
-        const balance = await eosioStore.getCurrencyBalance({
+        const balance = await arisenStore.getCurrencyBalance({
           code: token.contract,
           account: accountStore.loginAccountInfo.account_name,
           symbol: token.symbol

@@ -46,7 +46,7 @@ class TokenThumbnailInfo extends Component {
               }}>
               <div>
                 <TokenInfoTitle style={{ display: 'inline' }}>{token.name}</TokenInfoTitle>
-                <TokenSmallSymbol> / EOS</TokenSmallSymbol>
+                <TokenSmallSymbol> / RSN</TokenSmallSymbol>
               </div>
               <span>More info</span>
             </Col>

@@ -8,9 +8,9 @@ import { FormattedMessage } from 'react-intl'
 import ColorsConstant from '../Colors/ColorsConstant'
 import { RightAlignCol } from '../Common/Common'
 import {
-  EOS_TOKEN,
-  SCATTER_ERROR_LOCKED,
-  SCATTER_ERROR_REJECT_TRANSACTION_BY_USER
+  RSN_TOKEN,
+  ARKID_ERROR_LOCKED,
+  ARKID_ERROR_REJECT_TRANSACTION_BY_USER
 } from '../../constants/Values'
 
 import styled from 'styled-components'
@@ -75,14 +75,14 @@ class Order extends Component {
       buyQty: 0.0001,
       sellPrice: 0.1,
       sellQty: 0.0001,
-      buyMarketTotalEos: 0.1,
+      buyMarketTotalRsn: 0.1,
       sellMarketAmount: 0.0001,
       tokenBalance: 0.0
     }
   }
 
   componentWillMount = () => {
-    const { tradeStore, accountStore, eosioStore, token } = this.props
+    const { tradeStore, accountStore, arisenStore, token } = this.props
     this.disposer = tradeStore.setWatchPrice(changed => {
       this.setState({
         buyPrice: parseFloat(changed.newValue),
@@ -93,7 +93,7 @@ class Order extends Component {
     this.disposerAccount = accountStore.subscribeLoginState(async changed => {
       if (changed.oldValue !== changed.newValue) {
         if (changed.newValue) {
-          const tokenBalance = await eosioStore.getCurrencyBalance({
+          const tokenBalance = await arisenStore.getCurrencyBalance({
             code: token.contract,
             account: accountStore.loginAccountInfo.account_name,
             symbol: token.symbol
@@ -136,53 +136,53 @@ class Order extends Component {
   }
 
   onBuyLimitClick = async () => {
-    const { eosioStore, accountStore, tradeStore, token } = this.props
+    const { arisenStore, accountStore, tradeStore, token } = this.props
 
     if (!accountStore.isLogin) {
       this.props.alert.show('Please login.')
       return
     }
 
-    let eosBalance = await accountStore.getTokenBalance(EOS_TOKEN.symbol, EOS_TOKEN.contract)
-    eosBalance = parseFloat(eosBalance)
+    let rsnBalance = await accountStore.getTokenBalance(RSN_TOKEN.symbol, RSN_TOKEN.contract)
+    rsnBalance = parseFloat(rsnBalance)
 
-    const eosAmount = parseFloat(this.state.buyPrice * this.state.buyQty).toFixed(
-      EOS_TOKEN.precision
+    const rsnAmount = parseFloat(this.state.buyPrice * this.state.buyQty).toFixed(
+      RSN_TOKEN.precision
     )
 
-    if (eosAmount < 0.1) {
-      this.props.alert.show('Order is must greater then or equal to 0.1000 EOS.')
+    if (rsnAmount < 0.1) {
+      this.props.alert.show('Order is must greater then or equal to 0.1000 RSN.')
       return
     }
 
-    if (eosAmount > eosBalance) {
-      this.props.alert.show('Please check your eos balance.')
+    if (rsnAmount > rsnBalance) {
+      this.props.alert.show('Please check your rsn balance.')
       return
     }
 
-    const tokenPriceInEos = parseFloat(parseFloat(this.state.buyPrice).toFixed(EOS_TOKEN.precision))
-    const tokenQty = parseFloat(parseFloat(this.state.buyQty).toFixed(EOS_TOKEN.precision))
+    const tokenPriceInRsn = parseFloat(parseFloat(this.state.buyPrice).toFixed(RSN_TOKEN.precision))
+    const tokenQty = parseFloat(parseFloat(this.state.buyQty).toFixed(RSN_TOKEN.precision))
 
     const memo = {
       type: 'BUY_LIMIT',
       symbol: token.symbol,
-      market: 'EOS',
-      price: tokenPriceInEos,
+      market: 'RSN',
+      price: tokenPriceInRsn,
       qty: tokenQty,
-      amount: eosAmount
+      amount: rsnAmount
     }
 
     const data = {
       accountName: accountStore.loginAccountInfo.account_name,
       authority: accountStore.permissions[0].perm_name,
-      quantity: eosAmount,
-      precision: EOS_TOKEN.precision,
-      symbol: EOS_TOKEN.symbol,
+      quantity: rsnAmount,
+      precision: RSN_TOKEN.precision,
+      symbol: RSN_TOKEN.symbol,
       memo: JSON.stringify(memo)
     }
 
     try {
-      const result = await eosioStore.buyToken(EOS_TOKEN.contract, data)
+      const result = await arisenStore.buyToken(RSN_TOKEN.contract, data)
 
       if (result) {
         tradeStore.getPollingOrderByTxId(
@@ -197,47 +197,47 @@ class Order extends Component {
   }
 
   onBuyMarketClick = async () => {
-    const { eosioStore, tradeStore, accountStore, token } = this.props
+    const { arisenStore, tradeStore, accountStore, token } = this.props
 
     if (!accountStore.isLogin) {
       this.props.alert.show('Please login.')
       return
     }
 
-    const eosBalance = await accountStore.getTokenBalance(EOS_TOKEN.symbol, EOS_TOKEN.contract)
+    const rsnBalance = await accountStore.getTokenBalance(RSN_TOKEN.symbol, RSN_TOKEN.contract)
 
-    const eosAmount = parseFloat(this.state.buyMarketTotalEos).toFixed(EOS_TOKEN.precision)
+    const rsnAmount = parseFloat(this.state.buyMarketTotalRsn).toFixed(RSN_TOKEN.precision)
 
-    if (eosAmount < 0.1) {
-      this.props.alert.show('Order is must greater then or equal to 0.1000 EOS.')
+    if (rsnAmount < 0.1) {
+      this.props.alert.show('Order is must greater then or equal to 0.1000 RSN.')
       return
     }
 
-    if (eosAmount > eosBalance) {
-      this.props.alert.show('Please check your eos balance.')
+    if (rsnAmount > rsnBalance) {
+      this.props.alert.show('Please check your rsn balance.')
       return
     }
 
     const memo = {
       type: 'BUY_MARKET',
       symbol: token.symbol,
-      market: 'EOS',
+      market: 'RSN',
       price: 0.0,
       qty: 0.0,
-      amount: eosAmount
+      amount: rsnAmount
     }
 
     const data = {
       accountName: accountStore.loginAccountInfo.account_name,
       authority: accountStore.permissions[0].perm_name,
-      quantity: eosAmount,
-      precision: EOS_TOKEN.precision,
-      symbol: EOS_TOKEN.symbol,
+      quantity: rsnAmount,
+      precision: RSN_TOKEN.precision,
+      symbol: RSN_TOKEN.symbol,
       memo: JSON.stringify(memo)
     }
 
     try {
-      const result = await eosioStore.buyToken(EOS_TOKEN.contract, data)
+      const result = await arisenStore.buyToken(RSN_TOKEN.contract, data)
 
       if (result) {
         tradeStore.getPollingOrderByTxId(
@@ -252,7 +252,7 @@ class Order extends Component {
   }
 
   onSellLimitClick = async () => {
-    const { eosioStore, accountStore, tradeStore, token } = this.props
+    const { arisenStore, accountStore, tradeStore, token } = this.props
 
     if (!accountStore.isLogin) {
       this.props.alert.show('Please login.')
@@ -268,21 +268,21 @@ class Order extends Component {
       return
     }
 
-    const tokenPriceInEos = parseFloat(parseFloat(this.state.sellPrice).toFixed(token.precision))
-    const eosAmount = parseFloat((tokenPriceInEos * tokenQty).toFixed(token.precision))
+    const tokenPriceInRsn = parseFloat(parseFloat(this.state.sellPrice).toFixed(token.precision))
+    const rsnAmount = parseFloat((tokenPriceInRsn * tokenQty).toFixed(token.precision))
 
-    if (eosAmount < 0.1) {
-      this.props.alert.show('Order is must greater then or equal to 0.1000 EOS.')
+    if (rsnAmount < 0.1) {
+      this.props.alert.show('Order is must greater then or equal to 0.1000 RSN.')
       return
     }
 
     const memo = {
       type: 'SELL_LIMIT',
       symbol: token.symbol,
-      market: 'EOS',
-      price: tokenPriceInEos,
+      market: 'RSN',
+      price: tokenPriceInRsn,
       qty: tokenQty,
-      amount: eosAmount
+      amount: rsnAmount
     }
 
     const data = {
@@ -295,7 +295,7 @@ class Order extends Component {
     }
 
     try {
-      const result = await eosioStore.buyToken(token.contract, data)
+      const result = await arisenStore.buyToken(token.contract, data)
 
       if (result) {
         tradeStore.getPollingOrderByTxId(
@@ -310,7 +310,7 @@ class Order extends Component {
   }
 
   onSellMarketClick = async () => {
-    const { eosioStore, accountStore, tradeStore, token } = this.props
+    const { arisenStore, accountStore, tradeStore, token } = this.props
 
     if (!accountStore.isLogin) {
       this.props.alert.show('Please login.')
@@ -328,7 +328,7 @@ class Order extends Component {
     const memo = {
       type: 'SELL_MARKET',
       symbol: token.symbol,
-      market: 'EOS',
+      market: 'RSN',
       price: 0.0,
       qty: parseFloat(tokenQty),
       amount: 0.0
@@ -344,7 +344,7 @@ class Order extends Component {
     }
 
     try {
-      const result = await eosioStore.buyToken(token.contract, data)
+      const result = await arisenStore.buyToken(token.contract, data)
 
       if (result) {
         tradeStore.getPollingOrderByTxId(
@@ -359,9 +359,9 @@ class Order extends Component {
   }
 
   handleError = e => {
-    if (e.code === SCATTER_ERROR_LOCKED) {
-      this.props.alert.show('Scatter is locked.')
-    } else if (e.code === SCATTER_ERROR_REJECT_TRANSACTION_BY_USER) {
+    if (e.code === ARKID_ERROR_LOCKED) {
+      this.props.alert.show('ArisenID is locked.')
+    } else if (e.code === ARKID_ERROR_REJECT_TRANSACTION_BY_USER) {
       this.props.alert.show('Cancelled.')
     }
   }
@@ -387,7 +387,7 @@ class Order extends Component {
                 <PrimaryOrderColPanel sm="5" buy="true">
                   <FormattedMessage id="Available" />
                 </PrimaryOrderColPanel>
-                <RightAlignCol sm="7">{`${accountStore.liquid.toFixed(4)} EOS`}</RightAlignCol>
+                <RightAlignCol sm="7">{`${accountStore.liquid.toFixed(4)} RSN`}</RightAlignCol>
               </OrderRowPanel>
               <OrderRowPanel>
                 <OrderColPanel sm="3">
@@ -401,7 +401,7 @@ class Order extends Component {
                       onChange={this.handleChange('buyPrice')}
                       step="1"
                     />
-                    <InputGroupAddon addonType="append">EOS</InputGroupAddon>
+                    <InputGroupAddon addonType="append">RSN</InputGroupAddon>
                   </InputGroup>
                 </Col>
               </OrderRowPanel>
@@ -425,7 +425,7 @@ class Order extends Component {
               <OrderAmountRow>
                 <FormattedMessage id="TOTAL" />
                 {' : '}
-                {(this.state.buyPrice * this.state.buyQty).toFixed(EOS_TOKEN.precision)}
+                {(this.state.buyPrice * this.state.buyQty).toFixed(RSN_TOKEN.precision)}
               </OrderAmountRow>
               <OrderRowPanel>
                 <OrderColPanel sm="3" />
@@ -458,7 +458,7 @@ class Order extends Component {
                       value={this.state.sellPrice}
                       step="1"
                     />
-                    <InputGroupAddon addonType="append">EOS</InputGroupAddon>
+                    <InputGroupAddon addonType="append">RSN</InputGroupAddon>
                   </InputGroup>
                 </Col>
               </OrderRowPanel>
@@ -482,7 +482,7 @@ class Order extends Component {
               <OrderAmountRow>
                 <FormattedMessage id="TOTAL" />
                 {' : '}
-                {(this.state.sellPrice * this.state.sellQty).toFixed(EOS_TOKEN.precision)}
+                {(this.state.sellPrice * this.state.sellQty).toFixed(RSN_TOKEN.precision)}
               </OrderAmountRow>
               <OrderRowPanel>
                 <OrderColPanel sm="3" />
@@ -504,7 +504,7 @@ class Order extends Component {
                 <PrimaryOrderColPanel sm="5" buy="true">
                   <FormattedMessage id="Available" />
                 </PrimaryOrderColPanel>
-                <RightAlignCol sm="6">{`${accountStore.liquid.toFixed(4)} EOS`}</RightAlignCol>
+                <RightAlignCol sm="6">{`${accountStore.liquid.toFixed(4)} RSN`}</RightAlignCol>
               </OrderRowPanel>
               <OrderRowPanel>
                 <OrderColPanel sm="3">
@@ -516,10 +516,10 @@ class Order extends Component {
                       placeholder="Amount"
                       type="number"
                       step="1"
-                      onChange={this.handleChange('buyMarketTotalEos')}
-                      value={this.state.buyMarketTotalEos}
+                      onChange={this.handleChange('buyMarketTotalRsn')}
+                      value={this.state.buyMarketTotalRsn}
                     />
-                    <InputGroupAddon addonType="append">EOS</InputGroupAddon>
+                    <InputGroupAddon addonType="append">RSN</InputGroupAddon>
                   </InputGroup>
                 </Col>
               </OrderRowPanel>
