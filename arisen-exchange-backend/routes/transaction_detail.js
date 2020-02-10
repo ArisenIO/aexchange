@@ -20,6 +20,7 @@ router.post('/transaction_detail',async (req, res) => {
 
             await axios.get(url)
                             .then(transaction_data => {
+                                console.log('TRS', transaction_data.data[1].operation_history.op_object)
                                 if(transaction_data.data[1].operation_history.op_object.amount_.asset_id !== Setting.asset_id && transaction_data.data[1].account_history.account !== Setting.account_id) {
                                     return res.status(200).send({
                                         message: 'Asset id missmatch or please send RSN on Bitshare'

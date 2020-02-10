@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class Home extends Component {
         componentWillMount() {
-            let transaction_id = '3a4b9bc3bef4ea8445be644fd2f6733c1c266b67'
+            let transaction_id = 'c3bc196c582e881951bea3a99e2c52dff016782b'
             // axios.get(`https://explorer.bitshares-kibana.info/es/trx?trx=${transaction_id}&size=10`)
             //         .then(res => {
             //             let transaction_detail = res.data
