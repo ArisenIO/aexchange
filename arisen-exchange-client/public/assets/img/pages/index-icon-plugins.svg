@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>solid</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="solid" fill-rule="nonzero">
+            <rect id="Rectangle" fill="#0769AD" x="0" y="0" width="200" height="200"></rect>
+            <path d="M123.333333,118.666667 L104.666667,100 L104.666667,85.16 C110.08,83.2 114,78.0666667 114,72 C114,64.2533333 107.746667,58 100,58 C92.2533333,58 86,64.2533333 86,72 C86,78.0666667 89.92,83.2 95.3333333,85.16 L95.3333333,100 L76.6666667,118.666667 L58,118.666667 L58,142 L81.3333333,142 L81.3333333,127.766667 L100,108.166667 L118.666667,127.766667 L118.666667,142 L142,142 L142,118.666667 L123.333333,118.666667 Z" id="Shape" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>
