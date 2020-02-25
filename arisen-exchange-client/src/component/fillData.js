@@ -129,7 +129,7 @@ export default class FillData extends React.Component {
                                         </div>
                                     </form>
                                     <div className="d-flex justify-content-center">
-                                        <button className="btn btn-danger"> Make Transaction </button>
+                                        <button className="btn btn-danger"> Proceed Exchange </button>
                                     </div>
                                 </div>
                             </div>
