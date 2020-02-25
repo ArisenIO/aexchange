@@ -8,7 +8,9 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-mobx": "0.0.4",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "reactstrap": "^8.4.1",
+    "sweetalert2": "^9.8.2"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
