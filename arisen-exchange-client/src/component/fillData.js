@@ -10,9 +10,9 @@ export default class FillData extends React.Component {
         this.state = {
             change: false,
             token: ["Arisen", "BitShare"],
-            value: 0,
-            send: "",
-            recieve: "",
+            value: 1,
+            send: "Arisen",
+            recieve: "BitShare",
             sender: "",
             reciever: "",
         }
@@ -74,7 +74,7 @@ export default class FillData extends React.Component {
                         <div className="py-3 mb-2">
                             <div className="d-flex flex-wrap justify-content-around">
                                 <form className="align-items-center flex4 mb-1">
-                                    <p className="h6 color-voilet">Send</p>
+                                    <p className="h6 color-voilet">Select Sender Network</p>
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
                                             <DropdownToggle caret className="mb-0 custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
@@ -100,11 +100,11 @@ export default class FillData extends React.Component {
                                 </form>
                                 <div className="align-self-end mb-0 flex1 mb-1 mt-1">
                                     <a onClick={this.handleSwap} className="pointer w-50px h-50px shadow-cstm m-auto br-50 d-flex justify-content-center">
-                                        <i className="fas fa-sync-alt align-self-center color-voilet" />
+                                        <i class="fas fa-exchange-alt align-self-center color-voilet" />
                                     </a>
                                 </div>
                                 <form className="align-items-center flex4 mb-1">
-                                    <p className="h6 color-voilet">Recieve</p>
+                                    <p className="h6 color-voilet">Select Reciever Network</p>
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
                                             <DropdownToggle caret className="mb-0 custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
@@ -142,7 +142,7 @@ export default class FillData extends React.Component {
                                     value={this.state.sender}
                                     onChange={this.handleUsername}
                                     className="form-control"
-                                    placeholder="Enter username"
+                                    placeholder={`Enter ${send} Username`}
                                 />
                             </div>
                             <div className="form-group flex1 ml-2">
@@ -153,7 +153,7 @@ export default class FillData extends React.Component {
                                     className="form-control"
                                     value={this.state.reciever}
                                     onChange={this.handleUsername}
-                                    placeholder="Enter username"
+                                    placeholder={`Enter ${recieve} Username`}
                                 />
                             </div>
                         </form>
