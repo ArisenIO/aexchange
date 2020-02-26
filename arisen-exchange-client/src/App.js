@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import FillData from './component/fillData';
+import Exchange from './component/exchange';
 
 class App extends Component {
   render() {
     return (
-      <FillData />
+      <Exchange />
     );
   }
 }
