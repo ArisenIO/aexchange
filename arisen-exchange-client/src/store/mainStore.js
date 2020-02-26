@@ -17,9 +17,9 @@ class Mainstore {
         this.firstStep = f;
     }
 
-    @computed get usingValues() {
-        //apicall
-    }
+    // @computed get usingValues() {
+    //     //apicall
+    // }
 }
 
 const store = new Mainstore();
