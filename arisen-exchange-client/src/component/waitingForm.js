@@ -25,13 +25,13 @@ export default class WaitingForm extends React.Component {
     render() {
         const { sec, min } = this.state;
         const sender = this.props.mainStore.send,
-        value = this.props.mainStore.value;
+            value = this.props.mainStore.value;
         return (
-            <div className="card col-md-6 col-11">
-                <div className="card-body">
+            <div className="card mb-0">
+                <div className="card-body shadow">
                     <div className="py-1 br-1 bg-blue w-fit-content pl-2 pr-1 ml-auto mr-auto">
                         <p className="mb-0 text-center">Exchange ID:
-                            <small className="color-dark-blue fw-600 py-1 pl-1 pr-1 ml-1 bg-white br-1">123j1kjnnjk4435</small>
+                            <small className="color-dark-blue fw-600 py-1 pl-1 pr-1 ml-1 bg-white br-1">{this.props.mainStore.exchangeID}</small>
                         </p>
                     </div>
                     <div className="mt-3">

@@ -191,6 +191,10 @@ color: #f31212;
     min-height: 100vh;
 }
 
+.min-h-80vh{
+    min-height: 80vh;
+}
+
 .fnt-tiny {
     font-size: .9em;
 }

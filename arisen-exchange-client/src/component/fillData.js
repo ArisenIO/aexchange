@@ -1,6 +1,6 @@
 import React from 'react';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { inject,observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
 @inject('mainStore')
 @observer
@@ -13,8 +13,8 @@ export default class FillData extends React.Component {
             value: 0,
             send: "",
             recieve: "",
-            sender:"",
-            reciever:"",
+            sender: "",
+            reciever: "",
         }
     }
 
@@ -40,14 +40,26 @@ export default class FillData extends React.Component {
 
     handleUsername = (e) => {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
+    generateRandom = (length) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
     handleSubmit = () => {
-        const {sender,reciever,send,recieve,value} = this.state
-        if( sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
-            this.props.mainStore.getFormValue(sender,reciever,send,recieve,value,true);
+        const { sender, reciever, send, recieve, value } = this.state
+        if (sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
+            this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
+            this.props.mainStore.nextStep(true);
+            this.props.mainStore.getExchangeId(this.generateRandom(22))
         } else {
             alert('fill all fields');
         }
@@ -124,24 +136,24 @@ export default class FillData extends React.Component {
                         <form className="d-flex justify-content-around">
                             <div className="form-group flex1 mr-2">
                                 <label htmlFor="text">Enter Sender Username</label>
-                                <input 
-                                    type="text" 
-                                    name="sender" 
-                                    value={this.state.sender} 
-                                    onChange={this.handleUsername} 
-                                    className="form-control" 
+                                <input
+                                    type="text"
+                                    name="sender"
+                                    value={this.state.sender}
+                                    onChange={this.handleUsername}
+                                    className="form-control"
                                     placeholder="Enter username"
                                 />
                             </div>
                             <div className="form-group flex1 ml-2">
                                 <label htmlFor="text">Enter Reciever Username</label>
-                                <input 
-                                    type="text" 
-                                    name="reciever" 
-                                    className="form-control" 
-                                    value={this.state.reciever} 
-                                    onChange={this.handleUsername} 
-                                    placeholder="Enter username" 
+                                <input
+                                    type="text"
+                                    name="reciever"
+                                    className="form-control"
+                                    value={this.state.reciever}
+                                    onChange={this.handleUsername}
+                                    placeholder="Enter username"
                                 />
                             </div>
                         </form>

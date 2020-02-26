@@ -1,4 +1,4 @@
-import { observable,computed,action } from "mobx";
+import { observable,action } from "mobx";
 
 class Mainstore {
     @observable sender_username = '';
@@ -7,14 +7,22 @@ class Mainstore {
     @observable recieve = '';
     @observable value = '';
     @observable firstStep = false;
+    @observable exchangeID = '';
 
-    @action getFormValue = (a,b,c,d,e,f) => {
+    @action getFormValue = (a,b,c,d,e) => {
         this.sender_username = a;
         this.reciever_username = b;
         this.send = c;
         this.recieve = d;
         this.value = e;
-        this.firstStep = f;
+    }
+
+    @action nextStep = (next) => {
+        this.firstStep = next;
+    }
+
+    @action getExchangeId = (id) => {
+        this.exchangeID = id;
     }
 
     // @computed get usingValues() {
