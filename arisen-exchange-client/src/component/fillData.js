@@ -1,6 +1,9 @@
 import React from 'react';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { inject, observer } from 'mobx-react';
+import genWord from './random-word';
+import axios from 'axios';
+import ecc from 'arisenjs-ecc';
 
 @inject('mainStore')
 @observer
@@ -76,7 +79,9 @@ export default class FillData extends React.Component {
         return result;
     }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
+        let user = await genWord();
+
         const { sender, reciever, send, recieve, value } = this.state
         if (sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
             this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
@@ -85,6 +90,29 @@ export default class FillData extends React.Component {
         } else {
             alert('fill all fields');
         }
+
+        ecc.randomKey().then(async ownerprivateKey => {
+            let ownerPubKey = ecc.privateToPublic(ownerprivateKey);
+
+            let config = {
+                headers: {
+                    'Content-Type': 'application/json' 
+                }
+            }
+            ecc.randomKey().then(async activeprivateKey => {
+                let activePubKey = ecc.privateToPublic(activeprivateKey);
+
+                let body = JSON.stringify({
+                    user,
+                    ownerprivateKey,
+                    activeprivateKey,
+                    ownerPubKey,
+                    activePubKey
+            })
+            let res = await axios.post('http://localhost:3001/rsn-bts/check',body, config);
+   
+            })
+            })
     }
 
     render() {
