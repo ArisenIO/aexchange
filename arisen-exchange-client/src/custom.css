@@ -202,3 +202,11 @@ color: #f31212;
 .inset-shadow {
     box-shadow: inset 0 0rem 1rem rgba(52, 58, 64, 0.15) !important
 }
+
+.modal-header .close{
+    outline: none !important;
+    position: absolute;
+    right: 20px;
+    margin: 0;
+    padding: 0;
+}

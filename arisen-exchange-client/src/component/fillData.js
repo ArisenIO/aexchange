@@ -11,8 +11,8 @@ export default class FillData extends React.Component {
             change: false,
             token: ["Arisen", "BitShare"],
             value: 1,
-            send: "Arisen",
-            recieve: "BitShare",
+            send: "",
+            recieve: "",
             sender: "",
             reciever: "",
         }
@@ -27,9 +27,31 @@ export default class FillData extends React.Component {
     }
 
     handleDrop = (name, e) => {
-        this.setState({
-            [name]: e.target.value
-        })
+        if(name === 'send'){
+            if(e.target.value === 'Arisen'){
+                this.setState({
+                    send: 'Arisen',
+                    recieve: 'BitShare'
+                })
+            } else {
+                this.setState({
+                    send: 'BitShare',
+                    recieve: 'Arisen'
+                })
+            }
+        } else if(name === 'recieve') {
+            if(e.target.value === 'Arisen'){
+                this.setState({
+                    recieve: 'Arisen',
+                    send: 'BitShare'
+                })
+            } else {
+                this.setState({
+                    recieve: 'BitShare',
+                    send: 'Arisen'
+                })
+            }
+        }
     }
 
     handleChange = (e) => {
@@ -66,9 +88,9 @@ export default class FillData extends React.Component {
     }
 
     render() {
-        const { token, send, recieve, value } = this.state;
+        const { send, recieve, value } = this.state;
         return (
-            <div className="col-lg-12 col-xl-10 mt-4">
+            <div className="col-lg-12 col-xl-10 mt-2">
                 <div className="card">
                     <div className="card-body py-4">
                         <div className="py-3 mb-2">
@@ -82,9 +104,11 @@ export default class FillData extends React.Component {
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'send')} name="recieve">
                                                 <DropdownItem value="">Select</DropdownItem>
-                                                {
+                                                <DropdownItem value="Arisen">Arisen</DropdownItem>
+                                                <DropdownItem value="BitShare">BitShare</DropdownItem>
+                                                {/* {
                                                     token.filter(res => res !== recieve).map(obj => <DropdownItem key={obj} value={obj}>{obj}</DropdownItem>)
-                                                }
+                                                } */}
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <input
@@ -100,7 +124,7 @@ export default class FillData extends React.Component {
                                 </form>
                                 <div className="align-self-end mb-0 flex1 mb-1 mt-1">
                                     <a onClick={this.handleSwap} className="pointer w-50px h-50px shadow-cstm m-auto br-50 d-flex justify-content-center">
-                                        <i class="fas fa-exchange-alt align-self-center color-voilet" />
+                                        <img className="w-50" src="/assets/img/arisen/exchange.svg" alt="icon" />
                                     </a>
                                 </div>
                                 <form className="align-items-center flex4 mb-1">
@@ -112,9 +136,11 @@ export default class FillData extends React.Component {
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'recieve')} name="recieve">
                                                 <DropdownItem value="">Select </DropdownItem>
-                                                {
+                                                <DropdownItem value="Arisen">Arisen </DropdownItem>
+                                                <DropdownItem value="BitShare">BitShare </DropdownItem>
+                                                {/* {
                                                     token.filter(res => send !== res).map(obj => <DropdownItem key={obj} value={obj}>{obj}</DropdownItem>)
-                                                }
+                                                } */}
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <input

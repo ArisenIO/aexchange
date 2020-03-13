@@ -24,10 +24,6 @@ class Mainstore {
     @action getExchangeId = (id) => {
         this.exchangeID = id;
     }
-
-    // @computed get usingValues() {
-    //     //apicall
-    // }
 }
 
 const store = new Mainstore();

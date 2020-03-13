@@ -8,6 +8,11 @@ import WaitingForm from './waitingForm';
 @inject('mainStore')
 @observer
 export default class Exchange extends React.Component {
+
+    handleModal = () => {
+        this.props.mainStore.nextStep(false);
+    }
+
     render() {
         return (
             <section className="bg-gradient-2 min-h-100vh">
@@ -21,12 +26,11 @@ export default class Exchange extends React.Component {
                             </h1>
                         </div>
                         <FillData />
-
                     </div>
                 </div>
 
                 <Modal isOpen={this.props.mainStore.firstStep}>
-                    <ModalHeader className="py-2 d-flex justify-content-center mb-0">Transfer Details</ModalHeader>
+                    <ModalHeader toggle={this.handleModal} className="py-2 d-flex justify-content-center mb-0">Transfer Details</ModalHeader>
                     <ModalBody className="py-2">
                         <WaitingForm />
                         <div className="d-flex justify-content-center mt-2">
