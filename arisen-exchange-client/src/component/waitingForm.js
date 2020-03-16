@@ -17,11 +17,14 @@ export default class WaitingForm extends React.Component {
 
     componentDidMount() {
         this.IsMount = true;
-        setInterval(() => {
+        setInterval(() => {                 // suspend timer
             if (this.state.sec > 0 && this.state.min >= 0 && this.IsMount) {
                 this.setState({ sec: this.state.sec - 1 })
             } else if (this.state.sec === 0 && this.state.min !== 0 && this.IsMount) {
                 this.setState({ sec: 59, min: this.state.min - 1 })
+            }
+            if (this.state.min === 0 && this.state.sec === 0) {
+                this.props.mainStore.nextStep(false);
             }
         }, 1000);
     }
@@ -30,7 +33,7 @@ export default class WaitingForm extends React.Component {
         this.IsMount = false;
     }
 
-    walletNameCopy = () => {
+    walletNameCopy = () => {                // copy to clipboard function
         const textField = document.createElement('textarea')
         textField.innerText = document.getElementById('walletName').innerText;
         document.body.appendChild(textField)
@@ -47,7 +50,8 @@ export default class WaitingForm extends React.Component {
     render() {
         const { sec, min } = this.state;
         const sender = this.props.mainStore.send,
-            amount = this.props.mainStore.value;
+            amount = this.props.mainStore.value,
+            newUser = this.props.mainStore.newUserForArisen;
         return (
             <React.Fragment>
                 <div className="card mb-0">
@@ -58,13 +62,13 @@ export default class WaitingForm extends React.Component {
                         <div className="d-flex justify-content-center mt-4">
                             <QRCode
                                 className="br-cstm shadow b1solid p-2"
-                                value={sender !== 'Arisen' ? 'arisen-out' : 'out'}
+                                value={sender !== 'Arisen' ? 'arisen-out' : newUser}
                                 size={180}
                             />
                         </div>
                         <div className="d-flex mt-2 justify-content-center">
                             <p className="h6 fw-500 clr-fnt text-center mb-0 align-self-center mr-1">{sender} Wallet: </p>
-                            <h4 className="text-center mb-0 w-fit-content" id="walletName">{sender !== 'Arisen' ? 'arisen-out' : 'out'}</h4>
+                            <h4 className="text-center mb-0 w-fit-content" id="walletName">{sender !== 'Arisen' ? 'arisen-out' : newUser}</h4>
                             <i
                                 className="fas fa-clone align-self-center ml-2 color-voilet"
                                 data-toggle="tooltip"

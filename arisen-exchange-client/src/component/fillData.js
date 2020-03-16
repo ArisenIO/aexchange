@@ -2,7 +2,6 @@ import React from 'react';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { inject, observer } from 'mobx-react';
 import genWord from './random-word';
-import axios from 'axios';
 import ecc from 'arisenjs-ecc';
 
 @inject('mainStore')
@@ -21,7 +20,7 @@ export default class FillData extends React.Component {
         }
     }
 
-    handleSwap = () => {
+    handleSwap = () => {                         // swap fields value function
         this.setState({
             change: !this.state.change,
             send: this.state.recieve,
@@ -29,9 +28,9 @@ export default class FillData extends React.Component {
         })
     }
 
-    handleDrop = (name, e) => {
-        if(name === 'send'){
-            if(e.target.value === 'Arisen'){
+    handleDrop = (name, e) => {                  // select drop downs value automatically
+        if (name === 'send') {
+            if (e.target.value === 'Arisen') {
                 this.setState({
                     send: 'Arisen',
                     recieve: 'BitShare'
@@ -42,8 +41,8 @@ export default class FillData extends React.Component {
                     recieve: 'Arisen'
                 })
             }
-        } else if(name === 'recieve') {
-            if(e.target.value === 'Arisen'){
+        } else if (name === 'recieve') {
+            if (e.target.value === 'Arisen') {
                 this.setState({
                     recieve: 'Arisen',
                     send: 'BitShare'
@@ -57,63 +56,51 @@ export default class FillData extends React.Component {
         }
     }
 
-    handleChange = (e) => {
+    handleChange = (e) => {                      // get amount value
         this.setState({
             value: e.target.value
         })
     }
 
-    handleUsername = (e) => {
+    handleUsername = (e) => {                    // get usernames of the tokens
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    generateRandom = (length) => {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        for (let i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-    }
-
-    handleSubmit = async () => {
-        let user = await genWord();
-
-        const { sender, reciever, send, recieve, value } = this.state
+    handleSubmit = async () => {                 // starts the exchange process
+        const { sender, reciever, send, recieve, value } = this.state;
         if (sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
+            this.props.mainStore.checkUser(sender);                     // check the availability of the username
+            if (send === 'Arisen') {
+                this.generateKeys();
+            }
             this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
             this.props.mainStore.nextStep(true);
-            this.props.mainStore.getExchangeId(this.generateRandom(22))
         } else {
-            alert('fill all fields');
+            alert('Fields are missing !!');
         }
+    }
 
-        ecc.randomKey().then(async ownerprivateKey => {
+    generateKeys = async () => {                    // generate keys for new username
+        let user = await genWord();
+        await ecc.randomKey().then(async ownerprivateKey => {
             let ownerPubKey = ecc.privateToPublic(ownerprivateKey);
-
-            let config = {
-                headers: {
-                    'Content-Type': 'application/json' 
-                }
-            }
             ecc.randomKey().then(async activeprivateKey => {
-                let activePubKey = ecc.privateToPublic(activeprivateKey);
+                let activePubKey = await ecc.privateToPublic(activeprivateKey);
 
-                let body = JSON.stringify({
+                let newUserDataKeys = {
                     user,
                     ownerprivateKey,
                     activeprivateKey,
                     ownerPubKey,
                     activePubKey
+                }
+                this.props.mainStore.newUser(newUserDataKeys);              // generating the new user
             })
-            let res = await axios.post('http://localhost:3001/rsn-bts/check',body, config);
-   
-            })
-            })
+        })
     }
+
 
     render() {
         const { send, recieve, value } = this.state;
@@ -123,7 +110,7 @@ export default class FillData extends React.Component {
                     <div className="card-body py-4">
                         <div className="py-3 mb-2">
                             <div className="d-flex flex-wrap justify-content-around">
-                                <form className="align-items-center flex4 mb-1">
+                                <form className="align-items-center flex4 mb-1" autoComplete="off">
                                     <p className="h6 color-voilet">Select Sender Network</p>
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
@@ -134,9 +121,6 @@ export default class FillData extends React.Component {
                                                 <DropdownItem value="">Select</DropdownItem>
                                                 <DropdownItem value="Arisen">Arisen</DropdownItem>
                                                 <DropdownItem value="BitShare">BitShare</DropdownItem>
-                                                {/* {
-                                                    token.filter(res => res !== recieve).map(obj => <DropdownItem key={obj} value={obj}>{obj}</DropdownItem>)
-                                                } */}
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <input
@@ -155,7 +139,7 @@ export default class FillData extends React.Component {
                                         <img className="w-50" src="/assets/img/arisen/exchange.svg" alt="icon" />
                                     </a>
                                 </div>
-                                <form className="align-items-center flex4 mb-1">
+                                <form className="align-items-center flex4 mb-1" autoComplete="off">
                                     <p className="h6 color-voilet">Select Reciever Network</p>
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
@@ -166,9 +150,6 @@ export default class FillData extends React.Component {
                                                 <DropdownItem value="">Select </DropdownItem>
                                                 <DropdownItem value="Arisen">Arisen </DropdownItem>
                                                 <DropdownItem value="BitShare">BitShare </DropdownItem>
-                                                {/* {
-                                                    token.filter(res => send !== res).map(obj => <DropdownItem key={obj} value={obj}>{obj}</DropdownItem>)
-                                                } */}
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <input
@@ -187,7 +168,7 @@ export default class FillData extends React.Component {
                                 (send !== '' && recieve !== '') && <small className="ml-2">{`*${value} ${send} = ${value} ${recieve}`}</small>
                             }
                         </div>
-                        <form className="d-flex justify-content-around">
+                        <form className="d-flex justify-content-around" autoComplete="off">
                             <div className="form-group flex1 mr-2">
                                 <label htmlFor="text">Enter Sender Username</label>
                                 <input
