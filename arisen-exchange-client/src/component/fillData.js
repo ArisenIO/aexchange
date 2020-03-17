@@ -88,7 +88,6 @@ export default class FillData extends React.Component {
             let ownerPubKey = ecc.privateToPublic(ownerprivateKey);
             ecc.randomKey().then(async activeprivateKey => {
                 let activePubKey = await ecc.privateToPublic(activeprivateKey);
-
                 let newUserDataKeys = {
                     user,
                     ownerprivateKey,
@@ -96,7 +95,7 @@ export default class FillData extends React.Component {
                     ownerPubKey,
                     activePubKey
                 }
-                this.props.mainStore.newUser(newUserDataKeys);              // generating the new user
+                this.props.mainStore.newUser(newUserDataKeys);
             })
         })
     }
