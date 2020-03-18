@@ -2,7 +2,7 @@ import { observable, action } from "mobx";
 import Axios from "axios";
 
 class Mainstore {
-    @observable sender_username = '';
+    @observable sender_username = '' ;
     @observable reciever_username = '';
     @observable send = '';
     @observable recieve = '';
