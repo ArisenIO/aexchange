@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import Axios from "axios";
+// import Axios from "axios";
 import apiAgent from "../component/apiAgent/apiAgent";
 
 class Mainstore {
