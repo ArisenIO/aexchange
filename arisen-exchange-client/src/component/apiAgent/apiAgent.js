@@ -1,37 +1,53 @@
 
-import axios from 'axios';
+import Axios from 'axios';
 
 class ApiAgent {
 
-    checkUser = async (user) => {
-        return user;
-        // let check = await axios({
-        //     url: 'https://api.arisen.network/newuser/check-user',
-        //     data: {
-        //         user: user.user
-        //     },
-        //     method: 'post'
-        // })
-        // if (check) {
-        //     return console.log('user data check user api', check)
-        // }
-    }
+    // checkUser = async (user) => {
+    //     let value;
+    //     value = await Axios.post('https://api.arisen.network/newuser/check-user',
+    //         {
+    //             sender_username: user
+    //         })
+    //     if (value) {
+    //         return value;
+    //     } else {
+    //         return 0;
+    //     }
+    // }
 
-    newUser = async (user) => {
-        let userData = await axios({
-            url: 'https://api.arisen.network/new_user/user',
-            data: {
+    saveNewUser = async (user,senderUsername) => {
+        let value = await Axios.post('https://api.arisen.network/new_user/user',
+            {
                 user: user.user,
-                sender_username: user.sender_username,
+                sender_username: senderUsername,
                 ownerPubKey: user.ownerPubKey,
                 activePubKey: user.activePubKey,
                 ownerprivateKey: user.ownerprivateKey,
                 activeprivateKey: user.activeprivateKey
-            },
-            method: 'post'
-        })
-        if (userData) {
-            return console.log('user save from new user', userData)
+            })
+        if (value) {
+            return value;
+        } else {
+            return 0;
+        }
+    }
+
+    RSN_BTS_TRANSFER = async (data) => {
+        console.log('data value', data);
+        let value = await Axios.post('https://api.arisen.network/rsn-bts/transfer',
+            {
+                user: data.user,
+                send: data.send,
+                recieve: data.recieve,
+                sender_username: data.sender_username,
+                reciever_username: data.reciever_username,
+                amount: data.amount,
+            })
+        if (value) {
+            return value;
+        } else {
+            return 0;
         }
     }
 }

@@ -11,7 +11,7 @@ export default class FillData extends React.Component {
         super(props);
         this.state = {
             change: false,
-            token: ["Arisen", "BitShare"],
+            token: ["Arisen", "BitShare", "EOS", "TRON", "ETH"],
             value: 1,
             send: "",
             recieve: "",
@@ -29,31 +29,7 @@ export default class FillData extends React.Component {
     }
 
     handleDrop = (name, e) => {                  // select drop downs value automatically
-        if (name === 'send') {
-            if (e.target.value === 'Arisen') {
-                this.setState({
-                    send: 'Arisen',
-                    recieve: 'BitShare'
-                })
-            } else {
-                this.setState({
-                    send: 'BitShare',
-                    recieve: 'Arisen'
-                })
-            }
-        } else if (name === 'recieve') {
-            if (e.target.value === 'Arisen') {
-                this.setState({
-                    recieve: 'Arisen',
-                    send: 'BitShare'
-                })
-            } else {
-                this.setState({
-                    recieve: 'BitShare',
-                    send: 'Arisen'
-                })
-            }
-        }
+        this.setState({ [name]: e.target.value })
     }
 
     handleChange = (e) => {                      // get amount value
@@ -71,15 +47,14 @@ export default class FillData extends React.Component {
     handleSubmit = async () => {                 // starts the exchange process
         const { sender, reciever, send, recieve, value } = this.state;
         if (sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
-            this.props.mainStore.checkUser(sender);                     // check the availability of the username
             if (send === 'Arisen') {
                 this.generateKeys();
             }
             this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
-            this.props.mainStore.nextStep(true);
         } else {
             alert('Fields are missing !!');
         }
+
     }
 
     generateKeys = async () => {                    // generate keys for new username
@@ -100,9 +75,8 @@ export default class FillData extends React.Component {
         })
     }
 
-
     render() {
-        const { send, recieve, value } = this.state;
+        const { send, recieve, value, token } = this.state;
         return (
             <div className="col-lg-12 col-xl-10 mt-2">
                 <div className="card">
@@ -118,8 +92,9 @@ export default class FillData extends React.Component {
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'send')} name="recieve">
                                                 <DropdownItem value="">Select</DropdownItem>
-                                                <DropdownItem value="Arisen">Arisen</DropdownItem>
-                                                <DropdownItem value="BitShare">BitShare</DropdownItem>
+                                                {
+                                                    token.filter(item => item !== recieve).map(item => <DropdownItem key={item} value={item}>{item}</DropdownItem>)
+                                                }
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <input
@@ -147,8 +122,9 @@ export default class FillData extends React.Component {
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'recieve')} name="recieve">
                                                 <DropdownItem value="">Select </DropdownItem>
-                                                <DropdownItem value="Arisen">Arisen </DropdownItem>
-                                                <DropdownItem value="BitShare">BitShare </DropdownItem>
+                                                {
+                                                    token.filter(item => item !== send).map(item => <DropdownItem key={item} value={item}>{item}</DropdownItem>)
+                                                }
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
                                         <input

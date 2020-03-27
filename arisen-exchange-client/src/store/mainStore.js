@@ -1,8 +1,9 @@
 import { observable, action } from "mobx";
 import Axios from "axios";
+import apiAgent from "../component/apiAgent/apiAgent";
 
 class Mainstore {
-    @observable sender_username = '' ;
+    @observable sender_username = '';
     @observable reciever_username = '';
     @observable send = '';
     @observable recieve = '';
@@ -33,39 +34,45 @@ class Mainstore {
         this.activeprivateKey = user.activeprivateKey;
         this.ownerPubKey = user.ownerPubKey;
         this.activePubKey = user.activePubKey;
-        if (this.newOrNot) {
-            this.saveNewUser(user);
-        }
+        this.saveNewUser(user);
     }
 
-    @action checkUser = async (user) => {
-        await Axios({
-            url: 'https://api.arisen.network/newuser/check-user',
-            data: {
-                sender_username: user
-            },
-            method: 'post'
-        })
-            .then((res) => {
-                console.log('cjeck user', res);
-                res.data && !res.data.success && (this.newOrNot = true);
-            });
-    }
+    // @action checkUser = async (user) => {
+    //     try {
+    //         let value = await apiAgent.checkUser(user);
+    //         console.log('value of bla bla', value);
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }
 
     @action saveNewUser = async (user) => {
-        await Axios({
-            url: 'https://api.arisen.network/new_user/user',
-            data: {
-                user: this.newUserForArisen,
-                sender_username: this.sender_username,
-                ownerPubKey: user.ownerPubKey,
-                activePubKey: user.activePubKey,
-                ownerprivateKey: user.ownerprivateKey,
-                activeprivateKey: user.activeprivateKey
-            },
-            method: 'post'
-        })
-            .then((res) => console.log('new user data', res));
+        try {
+            let value = await apiAgent.saveNewUser(user,this.sender_username)
+            console.log('new user response', value)
+            if (value.data) {
+                this.newUserForArisen = value.data.arisen_account;
+                this.firstStep = true;
+            }
+        } catch (e) {
+            console.log(e);
+        }
+        
+        const data = {
+            user:this.newUserForArisen,
+            send: this.send,
+            recieve: this.recieve,
+            sender_username: this.sender_username,
+            reciever_username: this.reciever_username,
+            amount: this.value
+        }
+
+        try {
+            let value = await apiAgent.RSN_BTS_TRANSFER(data)
+            console.log('RSN transfer', value)
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 }
