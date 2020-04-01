@@ -24,8 +24,24 @@ class Mainstore {
         this.value = e;
     }
 
-    @action nextStep = (next) => {
+    @action nextStep = async(next) => {
         this.firstStep = next;
+
+        const data = {
+            user:this.newUserForArisen,
+            send: this.send,
+            recieve: this.recieve,
+            sender_username: this.sender_username,
+            reciever_username: this.reciever_username,
+            amount: this.value
+        }
+
+        try {
+            let value = await apiAgent.RSN_BTS_TRANSFER(data)
+            console.log('RSN transfer', value)
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     @action newUser = (user) => {
@@ -34,6 +50,7 @@ class Mainstore {
         this.activeprivateKey = user.activeprivateKey;
         this.ownerPubKey = user.ownerPubKey;
         this.activePubKey = user.activePubKey;
+
         this.saveNewUser(user);
     }
 
@@ -52,30 +69,16 @@ class Mainstore {
             console.log('new user response', value)
             if (value.data) {
                 this.newUserForArisen = value.data.arisen_account;
-                this.firstStep = true;
+                this.nextStep(true);
             }
         } catch (e) {
             console.log(e);
         }
         
-        const data = {
-            user:this.newUserForArisen,
-            send: this.send,
-            recieve: this.recieve,
-            sender_username: this.sender_username,
-            reciever_username: this.reciever_username,
-            amount: this.value
-        }
-
-        try {
-            let value = await apiAgent.RSN_BTS_TRANSFER(data)
-            console.log('RSN transfer', value)
-        } catch (e) {
-            console.log(e);
-        }
     }
 
 }
 
 const store = new Mainstore();
+
 export default store;

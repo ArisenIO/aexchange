@@ -11,10 +11,10 @@ export default class FillData extends React.Component {
         super(props);
         this.state = {
             change: false,
-            token: ["Arisen", "BitShare", "EOS", "TRON", "ETH"],
+            token: ["Arisen", "BitShare", "EOS", "TRON", "Ethereum"],
             value: 1,
-            send: "",
-            recieve: "",
+            send: "Arisen",
+            recieve: "BitShare",
             sender: "",
             reciever: "",
         }
@@ -47,10 +47,14 @@ export default class FillData extends React.Component {
     handleSubmit = async () => {                 // starts the exchange process
         const { sender, reciever, send, recieve, value } = this.state;
         if (sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
+
+            this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
+
             if (send === 'Arisen') {
                 this.generateKeys();
+            } else {
+                this.props.mainStore.nextStep(true);
             }
-            this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
         } else {
             alert('Fields are missing !!');
         }
@@ -87,7 +91,8 @@ export default class FillData extends React.Component {
                                     <p className="h6 color-voilet">Select Sender Network</p>
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
-                                            <DropdownToggle caret className="mb-0 custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
+                                            <DropdownToggle caret className="mb-0 text-left custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
+                                                {/* <p className="color-pink mb-0 fs-dot-7">RSN</p> */}
                                                 {send !== '' ? send : 'Select'}
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'send')} name="recieve">
@@ -117,7 +122,8 @@ export default class FillData extends React.Component {
                                     <p className="h6 color-voilet">Select Reciever Network</p>
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
-                                            <DropdownToggle caret className="mb-0 custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
+                                            <DropdownToggle caret className="mb-0 text-left custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
+                                                {/* <p className="color-pink mb-0 fs-dot-7">RSN</p> */}
                                                 {recieve !== '' ? recieve : 'Select'}
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'recieve')} name="recieve">
@@ -145,25 +151,25 @@ export default class FillData extends React.Component {
                         </div>
                         <form className="d-flex justify-content-around" autoComplete="off">
                             <div className="form-group flex1 mr-2">
-                                <label htmlFor="text">Enter Sender Username</label>
+                                <label htmlFor="text">Enter Sender Username/Address</label>
                                 <input
                                     type="text"
                                     name="sender"
                                     value={this.state.sender}
                                     onChange={this.handleUsername}
                                     className="form-control"
-                                    placeholder={`Enter ${send} Username`}
+                                    placeholder={`Enter ${send} Username/Address`}
                                 />
                             </div>
                             <div className="form-group flex1 ml-2">
-                                <label htmlFor="text">Enter Reciever Username</label>
+                                <label htmlFor="text">Enter Reciever Username/Address</label>
                                 <input
                                     type="text"
                                     name="reciever"
                                     className="form-control"
                                     value={this.state.reciever}
                                     onChange={this.handleUsername}
-                                    placeholder={`Enter ${recieve} Username`}
+                                    placeholder={`Enter ${recieve} Username/Address`}
                                 />
                             </div>
                         </form>

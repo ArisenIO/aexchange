@@ -176,7 +176,7 @@ color: #f31212;
 }
 
 .bg-grey {
-    background-color: #efefef
+    background-color: #f3f3f3
 }
 
 .dropdown-toggle:after {
@@ -197,6 +197,10 @@ color: #f31212;
 
 .fnt-tiny {
     font-size: .9em;
+}
+
+.fs-dot-7{
+    font-size: .7em;
 }
 
 .inset-shadow {
