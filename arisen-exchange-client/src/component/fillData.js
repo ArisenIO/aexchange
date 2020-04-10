@@ -48,6 +48,7 @@ export default class FillData extends React.Component {
         const { sender, reciever, send, recieve, value } = this.state;
         if (sender !== "" && reciever !== "" && send !== "" && recieve !== "" && value > 0) {
 
+            this.props.mainStore.checkUser(sender);
             this.props.mainStore.getFormValue(sender, reciever, send, recieve, value);
 
             if (send === 'Arisen') {
@@ -92,7 +93,7 @@ export default class FillData extends React.Component {
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
                                             <DropdownToggle caret className="mb-0 text-left custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
-                                                {/* <p className="color-pink mb-0 fs-dot-7">RSN</p> */}
+                                                <p className="color-pink mb-0 fs-dot-7">RSN</p>
                                                 {send !== '' ? send : 'Select'}
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'send')} name="recieve">
@@ -123,7 +124,7 @@ export default class FillData extends React.Component {
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
                                             <DropdownToggle caret className="mb-0 text-left custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
-                                                {/* <p className="color-pink mb-0 fs-dot-7">RSN</p> */}
+                                                <p className="color-pink mb-0 fs-dot-7">RSN</p>
                                                 {recieve !== '' ? recieve : 'Select'}
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'recieve')} name="recieve">

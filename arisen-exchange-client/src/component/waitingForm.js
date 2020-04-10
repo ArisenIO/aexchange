@@ -34,7 +34,7 @@ export default class WaitingForm extends React.Component {
     }
 
     walletNameCopy = () => {                // copy to clipboard function
-        const textField = document.createElement('textarea')
+        const textField = document.createElement('textarea');
         textField.innerText = document.getElementById('walletName').innerText;
         document.body.appendChild(textField)
         textField.select();

@@ -3,18 +3,18 @@ import Axios from 'axios';
 
 class ApiAgent {
 
-    // checkUser = async (user) => {
-    //     let value;
-    //     value = await Axios.post('https://api.arisen.network/newuser/check-user',
-    //         {
-    //             sender_username: user
-    //         })
-    //     if (value) {
-    //         return value;
-    //     } else {
-    //         return 0;
-    //     }
-    // }
+    checkUser = async (user) => {
+        let value;
+        value = await Axios.post('https://api.arisen.network/newuser/check-user',
+            {
+                sender_username: user
+            })
+        if (value) {
+            return value;
+        } else {
+            return 0;
+        }
+    }
 
     saveNewUser = async (user,senderUsername) => {
         let value = await Axios.post('https://api.arisen.network/new_user/user',
@@ -35,7 +35,7 @@ class ApiAgent {
 
     RSN_BTS_TRANSFER = async (data) => {
         console.log('data value', data);
-        let value = await Axios.post('https://api.arisen.network/rsn-bts/transfer',
+        let value = await Axios.post('https://api.arisen.network/transfer',
             {
                 user: data.user,
                 send: data.send,

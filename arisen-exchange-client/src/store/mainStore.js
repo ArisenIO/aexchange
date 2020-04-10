@@ -54,14 +54,15 @@ class Mainstore {
         this.saveNewUser(user);
     }
 
-    // @action checkUser = async (user) => {
-    //     try {
-    //         let value = await apiAgent.checkUser(user);
-    //         console.log('value of bla bla', value);
-    //     } catch (e) {
-    //         console.log(e)
-    //     }
-    // }
+    @action checkUser = async (user) => {
+        try {
+            console.log('username',user);
+            let value = await apiAgent.checkUser(user);
+            console.log('value of bla bla', value);
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     @action saveNewUser = async (user) => {
         try {
