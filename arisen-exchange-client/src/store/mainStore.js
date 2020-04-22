@@ -38,7 +38,7 @@ class Mainstore {
 
         try {
             let value = await apiAgent.RSI_BTS_TRANSFER(data)
-            console.log('RSI transfer', value)
+            console.log('RIX transfer', value)
         } catch (e) {
             console.log(e);
         }

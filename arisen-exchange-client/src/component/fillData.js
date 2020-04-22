@@ -93,7 +93,7 @@ export default class FillData extends React.Component {
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
                                             <DropdownToggle caret className="mb-0 text-left custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
-                                                <p className="color-pink mb-0 fs-dot-7">RSI</p>
+                                                <p className="color-pink mb-0 fs-dot-7">RIX</p>
                                                 {send !== '' ? send : 'Select'}
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'send')} name="recieve">
@@ -110,7 +110,7 @@ export default class FillData extends React.Component {
                                             className="flex4 b1solid h50 pl-2 b-right-0 pr-2 b-left-0"
                                         />
                                         <div className="flex1 br-rtb-dot3 b1solid h50 b-left-0 d-flex justify-content-center">
-                                            <p className="align-self-center mb-0">RSI</p>
+                                            <p className="align-self-center mb-0">RIX</p>
                                         </div>
                                     </div>
                                 </form>
@@ -124,7 +124,7 @@ export default class FillData extends React.Component {
                                     <div className="d-flex">
                                         <UncontrolledDropdown className="flex2">
                                             <DropdownToggle caret className="mb-0 text-left custom-select bg-grey br-ltb-dot3 br-0 h50 h6 fw-500 b-right-0">
-                                                <p className="color-pink mb-0 fs-dot-7">RSI</p>
+                                                <p className="color-pink mb-0 fs-dot-7">RIX</p>
                                                 {recieve !== '' ? recieve : 'Select'}
                                             </DropdownToggle>
                                             <DropdownMenu onClick={this.handleDrop.bind(this, 'recieve')} name="recieve">
@@ -141,7 +141,7 @@ export default class FillData extends React.Component {
                                             className="flex4 b-right-0 b1solid h50 pl-2  pr-2 b-left-0"
                                         />
                                         <div className="flex1 br-rtb-dot3 b1solid h50 b-left-0 d-flex justify-content-center">
-                                            <p className="align-self-center mb-0">RSI</p>
+                                            <p className="align-self-center mb-0">RIX</p>
                                         </div>
                                     </div>
                                 </form>
