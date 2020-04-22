@@ -57,7 +57,7 @@ export default class WaitingForm extends React.Component {
                 <div className="card mb-0">
                     <div className="card-body shadow">
                         <div>
-                            <p className="w-80 pl-2 pr-2 text-center">Please send <span className="ml-1 mr-1 py-1 pl-1 pr-1 bg-voilet br-cstm h5">{amount} RSN</span> on {sender} wallet.</p>
+                            <p className="w-80 pl-2 pr-2 text-center">Please send <span className="ml-1 mr-1 py-1 pl-1 pr-1 bg-voilet br-cstm h5">{amount} RSI</span> on {sender} wallet.</p>
                         </div>
                         <div className="d-flex justify-content-center mt-4">
                             <QRCode

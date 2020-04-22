@@ -37,8 +37,8 @@ class Mainstore {
         }
 
         try {
-            let value = await apiAgent.RSN_BTS_TRANSFER(data)
-            console.log('RSN transfer', value)
+            let value = await apiAgent.RSI_BTS_TRANSFER(data)
+            console.log('RSI transfer', value)
         } catch (e) {
             console.log(e);
         }
